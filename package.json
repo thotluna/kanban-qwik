@@ -18,7 +18,8 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.1.5",
@@ -39,8 +40,6 @@
     "undici": "5.22.1",
     "vite": "4.3.9",
     "vite-tsconfig-paths": "4.2.0"
-  },
-  "hooks": {
-    "pre-commit": "lint-staged"
   }
+  
 }

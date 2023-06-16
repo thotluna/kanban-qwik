@@ -1,8 +1,0 @@
-{
-  "src/**/*.{js,ts,jsx,tsx}": [
-    "pnpm lint && pnpm fmt"
-  ],
-  "*.json": [
-    "pnpm fmt"
-  ]
-}

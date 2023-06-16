@@ -1,0 +1,6 @@
+{
+  "src/**/*.{js,ts,jsx,tsx}": [
+    "pnpm run lint",
+    "pnpm run fmt"
+  ]
+}
