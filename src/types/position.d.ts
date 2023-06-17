@@ -1,0 +1,3 @@
+interface Position {
+  position: number
+}
