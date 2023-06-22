@@ -3,13 +3,22 @@ import { AuthCard } from '~/auth/component/auth-card'
 import { FormEmail } from '~/auth/component/form-email'
 import { GroupButtonRow } from '~/auth/component/group-button-row'
 import { Header } from '~/auth/component/header'
+import { MESSAGE_TYPE } from '~/message/component/message'
+import { useMessageContext } from '~/message/hooks'
 
 export default component$(() => {
+  const stateMessage = useMessageContext()
+
   const handlerSubmit = $(() => {
     console.log('submit')
   })
 
-  const handlerGoogle = $(() => {})
+  const handlerGoogle = $(() => {
+    stateMessage.setMessage({
+      type: MESSAGE_TYPE.SUCCESS,
+      message: 'Google login',
+    })
+  })
 
   const handlerGithub = $(() => {})
 
@@ -18,7 +27,7 @@ export default component$(() => {
       <AuthCard>
         <Header
           title='Sign Up'
-          messageLink='Sign In with your user'
+          messageLink='sign in with your user'
           href='/sign-in'
         />
         <GroupButtonRow

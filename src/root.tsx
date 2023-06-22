@@ -7,6 +7,7 @@ import {
 import { RouterHead } from './shared/components/router-head/router-head'
 
 import './global.css'
+import { MessageProvider } from './message/context'
 
 export default component$(() => {
   return (
@@ -16,8 +17,10 @@ export default component$(() => {
         <link rel='manifest' href='/manifest.json' />
         <RouterHead />
       </head>
-      <body lang='en' class='bg-slate-800 text-slate-100 h-screen'>
-        <RouterOutlet />
+      <body lang='en' class=' bg-slate-800 text-slate-100 h-screen'>
+        <MessageProvider>
+          <RouterOutlet />
+        </MessageProvider>
         <ServiceWorkerRegister />
       </body>
     </QwikCityProvider>
