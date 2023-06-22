@@ -1,16 +1,24 @@
 import { component$ } from '@builder.io/qwik'
+import { type AuthAction, AUTH_ACTIONS } from '~/auth/constants'
 import { Button } from '~/shared/components/button'
 import { Spinner } from '~/shared/components/spinner'
 
 interface FormEmailProps {
   submitTitle: string
-  handlerSubmit: () => void
+  handlerSubmit: (event: any) => void
   hasTerms?: boolean
   isLoading?: boolean
+  action?: AuthAction
 }
 
 export const FormEmail = component$<FormEmailProps>(
-  ({ submitTitle, handlerSubmit, hasTerms = false, isLoading = false }) => {
+  ({
+    submitTitle,
+    handlerSubmit,
+    hasTerms = false,
+    isLoading = false,
+    action = undefined,
+  }) => {
     return (
       <form
         onSubmit$={handlerSubmit}
@@ -25,7 +33,7 @@ export const FormEmail = component$<FormEmailProps>(
         <label class='w-full pt-1 flex flex-col justify-between items-start gap-1 '>
           <span>Email address</span>
           <input
-            class='w-full rounded-md py-1'
+            class='w-full rounded-md py-1 text-slate-800 px-2'
             id='email'
             title='email'
             type='email'
@@ -33,12 +41,12 @@ export const FormEmail = component$<FormEmailProps>(
         </label>
         {hasTerms && (
           <label class='p-2 flex justify-between items-center gap-1 '>
-            <input type='checkbox' />
+            <input id='terms' name='terms' title='terms' type='checkbox' />
             <span>Agree to terms and conditions</span>
           </label>
         )}
         <Button classText='w-full' disabled={isLoading}>
-          {isLoading && <Spinner />}
+          {action === AUTH_ACTIONS.EMAIL && <Spinner />}
           {submitTitle}
         </Button>
       </form>
