@@ -12,7 +12,7 @@ export const FormEmail = component$<FormEmailProps>(
     return (
       <form
         onSubmit$={handlerSubmit}
-        preventdefault:click
+        preventdefault:submit
         class='w-full flex flex-col justify-between items-center gap-2 '
       >
         <div class='w-full relative  flex justify-center items-center before:absolute before:w-full before:h-[1px] before:bg-slate-400 before:bottom-[44%] before:left-0 before:right-0 '>

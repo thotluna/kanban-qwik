@@ -10,7 +10,6 @@ export default component$(() => {
   const stateMessage = useMessageContext()
 
   const handlerSubmit = $(() => {
-    console.log('submit')
     stateMessage.setMessage({
       message: 'Esto es una prueba',
       type: MESSAGE_TYPE.SUCCESS,
@@ -18,7 +17,6 @@ export default component$(() => {
   })
 
   const googleHandler = $(() => {
-    console.log('click google')
     stateMessage.setMessage({
       message: 'Esto es una prueba',
       type: MESSAGE_TYPE.ERROR,

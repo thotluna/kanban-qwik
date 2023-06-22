@@ -9,9 +9,7 @@ import { useMessageContext } from '~/message/hooks'
 export default component$(() => {
   const stateMessage = useMessageContext()
 
-  const handlerSubmit = $(() => {
-    console.log('submit')
-  })
+  const handlerSubmit = $(() => {})
 
   const handlerGoogle = $(() => {
     stateMessage.setMessage({
