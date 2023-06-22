@@ -17,5 +17,5 @@ export function useMessageContext() {
     state.type = type
   })
 
-  return { ...state, setMessage, clear }
+  return { state, setMessage, clear }
 }
