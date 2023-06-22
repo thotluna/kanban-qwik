@@ -1,14 +1,16 @@
 import { component$ } from '@builder.io/qwik'
 import { Button } from '~/shared/components/button'
+import { Spinner } from '~/shared/components/spinner'
 
 interface FormEmailProps {
   submitTitle: string
   handlerSubmit: () => void
   hasTerms?: boolean
+  isLoading?: boolean
 }
 
 export const FormEmail = component$<FormEmailProps>(
-  ({ submitTitle, handlerSubmit, hasTerms = false }) => {
+  ({ submitTitle, handlerSubmit, hasTerms = false, isLoading = false }) => {
     return (
       <form
         onSubmit$={handlerSubmit}
@@ -35,7 +37,10 @@ export const FormEmail = component$<FormEmailProps>(
             <span>Agree to terms and conditions</span>
           </label>
         )}
-        <Button classText='w-full'>{submitTitle}</Button>
+        <Button classText='w-full' disabled={isLoading}>
+          {isLoading && <Spinner />}
+          {submitTitle}
+        </Button>
       </form>
     )
   }

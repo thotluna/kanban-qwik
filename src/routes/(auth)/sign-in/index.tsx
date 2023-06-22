@@ -1,4 +1,4 @@
-import { $, component$ } from '@builder.io/qwik'
+import { $, component$, useSignal } from '@builder.io/qwik'
 import { AuthCard } from '~/auth/component/auth-card'
 import { FormEmail } from '~/auth/component/form-email'
 import { GroupButtonRow } from '~/auth/component/group-button-row'
@@ -8,8 +8,10 @@ import { useMessageContext } from '~/message/hooks'
 
 export default component$(() => {
   const stateMessage = useMessageContext()
+  const isLoading = useSignal(false)
 
   const handlerSubmit = $(() => {
+    isLoading.value = true
     stateMessage.setMessage({
       message: 'Esto es una prueba',
       type: MESSAGE_TYPE.SUCCESS,
@@ -17,6 +19,7 @@ export default component$(() => {
   })
 
   const googleHandler = $(() => {
+    isLoading.value = true
     stateMessage.setMessage({
       message: 'Esto es una prueba',
       type: MESSAGE_TYPE.ERROR,
@@ -34,8 +37,13 @@ export default component$(() => {
         <GroupButtonRow
           githubHandler={googleHandler}
           googleHandler={googleHandler}
+          isLoading={isLoading.value}
         />
-        <FormEmail submitTitle='Sign In' handlerSubmit={handlerSubmit} />
+        <FormEmail
+          submitTitle='Sign In'
+          handlerSubmit={handlerSubmit}
+          isLoading={isLoading.value}
+        />
       </AuthCard>
     </section>
   )
