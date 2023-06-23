@@ -11,6 +11,7 @@ export async function signInOpt({
     email,
     options: {
       emailRedirectTo: redirect,
+      shouldCreateUser: false,
     },
   })
 
