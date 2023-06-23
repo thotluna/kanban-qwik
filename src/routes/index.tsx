@@ -1,7 +1,7 @@
 import { $, component$ } from '@builder.io/qwik'
 import { type DocumentHead, Link, useNavigate } from '@builder.io/qwik-city'
-import { useUserSession } from '~/auth/hooks/use_user_session'
-import { signout } from '~/auth/services/sign_out'
+import { useUserSession } from '~/auth/hooks'
+import { signout } from '~/auth/services'
 import { Button } from '~/shared/components/button'
 
 export default component$(() => {

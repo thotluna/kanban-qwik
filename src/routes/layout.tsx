@@ -1,7 +1,7 @@
 import { component$, Slot, useVisibleTask$ } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
 import type { AuthChangeEvent, Session } from '@supabase/supabase-js'
-import { useUserSession } from '~/auth/hooks/use_user_session'
+import { useUserSession } from '~/auth/hooks'
 import { Message } from '~/message/component/message'
 import { supabase } from '~/shared/services/supabase'
 

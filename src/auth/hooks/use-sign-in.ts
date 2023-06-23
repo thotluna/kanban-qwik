@@ -4,8 +4,8 @@ import { MESSAGE_TYPE } from '~/message/component/message'
 import { useMessageContext } from '~/message/hooks'
 import { AUTH_ACTIONS } from '../constants'
 import { signInOpt } from '../services'
-import { useOAuth } from './use_o_auth'
-import { useAuthLoading } from './use_auth_loading'
+import { useOAuth } from './use-o-auth'
+import { useAuthLoading } from './use-auth-loading'
 
 export function useSignInByEmail() {
   const { setMessage } = useMessageContext()

@@ -2,7 +2,7 @@ import { $, useComputed$ } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 import { AUTH_ACTIONS } from '../constants'
 import { signInWithGitHub } from '../services'
-import type { StateAuthLoading } from './use_auth_loading'
+import type { StateAuthLoading } from './use-auth-loading'
 
 export function useOAuth(state: StateAuthLoading) {
   const location = useLocation()
