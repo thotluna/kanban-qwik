@@ -5,14 +5,19 @@ import { GithubIcon, GoogleIcon } from '~/shared/components/icons'
 import { Spinner } from '~/shared/components/spinner'
 
 interface GroupButtonRowProps {
-  googleHandler: () => void
-  githubHandler: () => void
+  onGoogle: () => void
+  onGithub: () => void
   isLoading?: boolean
   action?: AuthAction
 }
 
 export const GroupButtonRow = component$<GroupButtonRowProps>(
-  ({ googleHandler, githubHandler, isLoading = false, action = undefined }) => {
+  ({
+    onGoogle: googleHandler,
+    onGithub: githubHandler,
+    isLoading = false,
+    action = undefined,
+  }) => {
     return (
       <div class='w-full flex justify-between items-center py-1 gap-2'>
         <Button

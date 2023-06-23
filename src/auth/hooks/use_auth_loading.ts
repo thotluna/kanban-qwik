@@ -1,9 +1,16 @@
-import { useSignal } from '@builder.io/qwik'
-import { type AuthAction } from '../constants'
+import { useStore } from '@builder.io/qwik'
+import { AUTH_ACTIONS, type AuthAction } from '../constants'
+
+export type StateAuthLoading = {
+  isLoading: boolean
+  actions: AuthAction
+}
 
 export function useAuthLoading() {
-  const isLoading = useSignal(false)
-  const actions = useSignal<AuthAction>()
+  const state = useStore<StateAuthLoading>({
+    isLoading: false,
+    actions: AUTH_ACTIONS.EMAIL,
+  })
 
-  return { isLoading, actions }
+  return state
 }

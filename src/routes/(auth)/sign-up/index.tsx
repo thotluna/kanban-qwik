@@ -1,32 +1,30 @@
 import { $, component$ } from '@builder.io/qwik'
-import { AuthCard } from '~/auth/component/auth-card'
-import { FormEmail } from '~/auth/component/form-email'
-import { GroupButtonRow } from '~/auth/component/group-button-row'
-import { Header } from '~/auth/component/header'
+
+import { AuthCard, FormEmail, GroupButtonRow, Header } from '~/auth/component'
+import { useAuthLoading, useOAuth } from '~/auth/hooks'
+import { signUp } from '~/auth/services'
 import { AUTH_ACTIONS } from '~/auth/constants'
-import { useAuthLoading } from '~/auth/hooks/use_auth_loading'
-import { signUp } from '~/auth/services/sign_up'
+
 import { MESSAGE_TYPE } from '~/message/component/message'
 import { useMessageContext } from '~/message/hooks'
 
 export default component$(() => {
   const { setMessage } = useMessageContext()
-  const { isLoading, actions } = useAuthLoading()
-
-  console.log('renderizando Sign up')
+  const stateAuth = useAuthLoading()
+  const { handlerGithub, handlerGoogle } = useOAuth(stateAuth)
 
   const handlerSubmit = $(async (event: any) => {
-    if (isLoading.value) return
+    if (stateAuth.isLoading) return
 
-    isLoading.value = true
-    actions.value = AUTH_ACTIONS.EMAIL
+    stateAuth.isLoading = true
+    stateAuth.actions = AUTH_ACTIONS.EMAIL
 
     const email: string = (event.target as HTMLFormElement).email.value
     const isTerm: boolean = (event.target as HTMLFormElement).terms.checked
 
     if (!isTerm || !email) {
-      isLoading.value = false
-      actions.value = undefined
+      stateAuth.isLoading = false
+      stateAuth.actions = undefined
       setMessage({
         message: 'Please check the terms and fill the email',
         type: MESSAGE_TYPE.ERROR,
@@ -53,18 +51,8 @@ export default component$(() => {
       })
     }
 
-    isLoading.value = false
-    actions.value = undefined
-  })
-
-  const handlerGoogle = $(() => {
-    isLoading.value = true
-    actions.value = AUTH_ACTIONS.GOOGLE
-  })
-
-  const handlerGithub = $(() => {
-    isLoading.value = true
-    actions.value = AUTH_ACTIONS.GITHUB
+    stateAuth.isLoading = false
+    stateAuth.actions = undefined
   })
 
   return (
@@ -76,17 +64,17 @@ export default component$(() => {
           href='/sign-in'
         />
         <GroupButtonRow
-          githubHandler={handlerGithub}
-          googleHandler={handlerGoogle}
-          isLoading={isLoading.value}
-          action={actions.value}
+          onGithub={handlerGithub}
+          onGoogle={handlerGoogle}
+          isLoading={stateAuth.isLoading}
+          action={stateAuth.actions}
         />
         <FormEmail
           submitTitle='Sign Up'
           hasTerms={true}
-          handlerSubmit={handlerSubmit}
-          isLoading={isLoading.value}
-          action={actions.value}
+          onEmail={handlerSubmit}
+          isLoading={stateAuth.isLoading}
+          action={stateAuth.actions}
         />
       </AuthCard>
     </section>

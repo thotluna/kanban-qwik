@@ -5,7 +5,7 @@ import { Spinner } from '~/shared/components/spinner'
 
 interface FormEmailProps {
   submitTitle: string
-  handlerSubmit: (event: any) => void
+  onEmail: (event: any) => void
   hasTerms?: boolean
   isLoading?: boolean
   action?: AuthAction
@@ -14,7 +14,7 @@ interface FormEmailProps {
 export const FormEmail = component$<FormEmailProps>(
   ({
     submitTitle,
-    handlerSubmit,
+    onEmail: handlerSubmit,
     hasTerms = false,
     isLoading = false,
     action = undefined,
@@ -51,7 +51,7 @@ export const FormEmail = component$<FormEmailProps>(
         </p>
 
         <Button classText='w-full' disabled={isLoading}>
-          {action === AUTH_ACTIONS.EMAIL && <Spinner />}
+          {action === AUTH_ACTIONS.EMAIL && isLoading && <Spinner />}
           {submitTitle}
         </Button>
       </form>
