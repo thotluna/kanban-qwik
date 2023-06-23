@@ -45,6 +45,11 @@ export const FormEmail = component$<FormEmailProps>(
             <span>Agree to terms and conditions</span>
           </label>
         )}
+
+        <p class='text-sm text-slate-300 text-center my-2'>
+          Password is not required. Email is used as confirmation
+        </p>
+
         <Button classText='w-full' disabled={isLoading}>
           {action === AUTH_ACTIONS.EMAIL && <Spinner />}
           {submitTitle}

@@ -1,13 +1,14 @@
 import { component$ } from '@builder.io/qwik'
 import {
-  QwikCityProvider,
   RouterOutlet,
+  QwikCityProvider,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city'
 import { RouterHead } from './shared/components/router-head/router-head'
 
 import './global.css'
 import { MessageProvider } from './message/context'
+import { UserSessionProvider } from './auth/contexts'
 
 export default component$(() => {
   return (
@@ -19,7 +20,9 @@ export default component$(() => {
       </head>
       <body lang='en' class=' bg-slate-800 text-slate-100 h-screen'>
         <MessageProvider>
-          <RouterOutlet />
+          <UserSessionProvider>
+            <RouterOutlet />
+          </UserSessionProvider>
         </MessageProvider>
         <ServiceWorkerRegister />
       </body>
