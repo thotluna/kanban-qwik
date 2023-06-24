@@ -1,4 +1,4 @@
-import { MESSAGE_TYPE } from '~/message/component/message'
+import { MESSAGE_TYPE } from '~/message/constants'
 import { signUp } from '../services'
 
 export async function signUpHelper({ email }: { email: string }) {

@@ -5,7 +5,7 @@ import {
   useContextProvider,
   useStore,
 } from '@builder.io/qwik'
-import { MESSAGE_TYPE } from '../component/message'
+import { MESSAGE_TYPE } from '../constants'
 
 export type MessageObject = {
   message?: string

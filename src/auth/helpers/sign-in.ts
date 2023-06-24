@@ -1,5 +1,5 @@
 import type { RouteLocation } from '@builder.io/qwik-city'
-import { MESSAGE_TYPE } from '~/message/component/message'
+import { MESSAGE_TYPE } from '~/message/constants'
 import type { MessageObject } from '~/message/context'
 import { signInOpt } from '../services'
 

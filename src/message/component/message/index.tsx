@@ -1,12 +1,7 @@
 import { component$, useComputed$ } from '@builder.io/qwik'
+import { MESSAGE_TYPE } from '~/message/constants'
 import { useMessageContext } from '~/message/hooks'
 import { CloseIcon } from '~/shared/components/icons'
-
-export enum MESSAGE_TYPE {
-  SUCCESS = 'success',
-  ERROR = 'error',
-  INFO = 'info',
-}
 
 export const Message = component$(() => {
   const { state, clear } = useMessageContext()
