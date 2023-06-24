@@ -6,11 +6,7 @@ import {
   useStore,
 } from '@builder.io/qwik'
 import { MESSAGE_TYPE } from '../constants'
-
-export type MessageObject = {
-  message?: string
-  type: MESSAGE_TYPE.ERROR | MESSAGE_TYPE.SUCCESS | MESSAGE_TYPE.INFO
-}
+import type { MessageObject } from '../types'
 
 export const MessageContext = createContextId<MessageObject>('message_context')
 

@@ -1,5 +1,6 @@
 import { $, useContext } from '@builder.io/qwik'
-import { MessageContext, type MessageObject } from '../context'
+import { MessageContext } from '../context'
+import type { MessageObject } from '../types'
 
 export function useMessageContext() {
   const state = useContext(MessageContext)
