@@ -4,7 +4,7 @@ import {
   QwikCityProvider,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city'
-import { RouterHead } from './shared/components/router-head/router-head'
+import { RouterHead } from './shared/components/router-head'
 
 import './global.css'
 import { MessageProvider } from './message/context'

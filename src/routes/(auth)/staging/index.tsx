@@ -1,6 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { useNavigate } from '@builder.io/qwik-city'
-import { useUserSession } from '~/auth/hooks/use_user_session'
+import { useUserSession } from '~/auth/hooks'
 import { getUser } from '~/auth/services/getUser'
 
 export default component$(() => {

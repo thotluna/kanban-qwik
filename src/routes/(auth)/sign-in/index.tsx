@@ -1,10 +1,12 @@
 import { component$ } from '@builder.io/qwik'
 
 import { SignIn } from '~/auth/component'
-import { useSignInByEmail as useSignIn } from '~/auth/hooks'
+import { AUTH_SIGN } from '~/auth/constants'
+import { useSignAuth } from '~/auth/hooks'
 
 export default component$(() => {
-  const { handlerGithub, handlerGoogle, handlerSubmit, stateAuth } = useSignIn()
+  const { handlerGithub, handlerGoogle, handlerSubmit, stateAuth } =
+    useSignAuth(AUTH_SIGN.IN)
 
   return (
     <SignIn

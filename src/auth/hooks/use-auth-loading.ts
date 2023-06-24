@@ -1,10 +1,6 @@
 import { useStore } from '@builder.io/qwik'
-import { AUTH_ACTIONS, type AuthAction } from '../constants'
-
-export type StateAuthLoading = {
-  isLoading: boolean
-  actions: AuthAction
-}
+import { AUTH_ACTIONS } from '../constants'
+import type { StateAuthLoading } from '../types'
 
 export function useAuthLoading() {
   const state = useStore<StateAuthLoading>({

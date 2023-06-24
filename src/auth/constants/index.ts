@@ -4,8 +4,7 @@ export enum AUTH_ACTIONS {
   GITHUB = 'github',
 }
 
-export type AuthAction =
-  | AUTH_ACTIONS.EMAIL
-  | AUTH_ACTIONS.GITHUB
-  | AUTH_ACTIONS.GOOGLE
-  | undefined
+export enum AUTH_SIGN {
+  UP = 'signUp',
+  IN = 'signIn',
+}

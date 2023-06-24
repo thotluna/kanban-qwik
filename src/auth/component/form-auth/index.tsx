@@ -1,24 +1,64 @@
-import { component$ } from '@builder.io/qwik'
+import { $, component$, useStore } from '@builder.io/qwik'
 import { type AuthAction, AUTH_ACTIONS } from '~/auth/constants'
-import { Button } from '~/shared/components/button'
-import { Spinner } from '~/shared/components/spinner'
+import { Button, Spinner } from '~/shared/components'
 
 interface FormEmailProps {
   submitTitle: string
-  onEmail: (event: any) => void
+  onEmail: (email: string) => void
   hasTerms?: boolean
   isLoading?: boolean
   action?: AuthAction
 }
 
+type ErrorState = {
+  email?: string
+  terms?: string
+}
+
 export const FormEmail = component$<FormEmailProps>(
   ({
     submitTitle,
-    onEmail: handlerSubmit,
+    onEmail,
     hasTerms = false,
     isLoading = false,
     action = undefined,
   }) => {
+    const errorState = useStore<ErrorState>({
+      email: undefined,
+      terms: undefined,
+    })
+
+    const handlerSubmit = $((event: any) => {
+      const email = (event.target as HTMLFormElement).email?.value
+      const terms = (event.target as HTMLFormElement).terms?.checked
+
+      console.log({ email, terms })
+      console.log({ terms, hasTerms })
+
+      if (!email || email === '') {
+        errorState.email = 'Email is required'
+        return
+      }
+
+      const emailPatter = /^[A-Za-z0-9_!#$%&'*+/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm
+
+      if (!emailPatter.test(email)) {
+        errorState.email = 'Bad email'
+        return
+      }
+
+      errorState.email = ''
+
+      if (terms === false && hasTerms) {
+        errorState.terms = 'Please accept the terms and conditions'
+        return
+      }
+
+      errorState.terms = ''
+
+      onEmail(email)
+    })
+
     return (
       <form
         onSubmit$={handlerSubmit}
@@ -30,20 +70,32 @@ export const FormEmail = component$<FormEmailProps>(
             Or sign up with your email
           </span>
         </div>
-        <label class='w-full pt-1 flex flex-col justify-between items-start gap-1 '>
+        <label class='w-full mt-1 flex flex-col justify-start items-start gap-1 '>
           <span>Email address</span>
           <input
-            class='w-full rounded-md py-1 text-slate-800 px-2'
+            class={[
+              'w-full rounded-md py-1 text-slate-800 px-2',
+              errorState.email ? 'border-red-500' : '',
+            ]}
             id='email'
             title='email'
-            type='email'
+            placeholder='your-email@gmail.com'
+            // type='email'
           />
+          {errorState.email && (
+            <span class='text-sm text-red-500'>{errorState.email}</span>
+          )}
         </label>
         {hasTerms && (
-          <label class='p-2 flex justify-between items-center gap-1 '>
-            <input id='terms' name='terms' title='terms' type='checkbox' />
-            <span>Agree to terms and conditions</span>
-          </label>
+          <div class='w-full  flex flex-col items-center justify-start'>
+            <label class='w-full flex justify-start items-center gap-1 '>
+              <input id='terms' name='terms' title='terms' type='checkbox' />
+              <span>Agree to terms and conditions</span>
+            </label>
+            {errorState.terms && (
+              <span class='text-sm text-red-500'>{errorState.terms}</span>
+            )}
+          </div>
         )}
 
         <p class='text-sm text-slate-300 text-center my-2'>

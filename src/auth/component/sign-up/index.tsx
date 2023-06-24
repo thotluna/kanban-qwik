@@ -1,15 +1,8 @@
 import { component$ } from '@builder.io/qwik'
-import { Link } from '@builder.io/qwik-city'
-
-import {
-  AuthCard,
-  FormEmail as FormAuth,
-  GroupButtonRow,
-  Header,
-} from '~/auth/component'
 import type { SignInComponent } from '~/auth/types'
+import { AuthCard, Header, GroupButtonRow, FormEmail } from '~/auth/component'
 
-export const SignIn = component$<SignInComponent>(
+export const SignUp = component$<SignInComponent>(
   ({
     onGithub: handlerGithub,
     onGoogle: handlerGoogle,
@@ -20,11 +13,10 @@ export const SignIn = component$<SignInComponent>(
     return (
       <section class='w-full h-full flex justify-center items-center'>
         <AuthCard>
-          <Link href='/'>Atras</Link>
           <Header
-            title='Sign In'
-            messageLink='sign up with new user'
-            href='/sign-up'
+            title='Sign Up'
+            messageLink='sign in with your user'
+            href='/sign-in'
           />
           <GroupButtonRow
             onGithub={handlerGithub}
@@ -32,8 +24,9 @@ export const SignIn = component$<SignInComponent>(
             isLoading={isLoading}
             action={actions}
           />
-          <FormAuth
-            submitTitle='Sign In'
+          <FormEmail
+            submitTitle='Sign Up'
+            hasTerms={true}
             onEmail={handlerSubmit}
             isLoading={isLoading}
             action={actions}
