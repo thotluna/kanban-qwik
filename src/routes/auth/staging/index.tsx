@@ -24,7 +24,7 @@ export default component$(() => {
         console.error(error)
         userSession.userId = undefined
         userSession.isLoggedIn = false
-        navigate('/sign-in')
+        navigate('/auth/sign-in')
       }
     }, 500)
 

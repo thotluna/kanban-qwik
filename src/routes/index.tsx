@@ -27,13 +27,13 @@ export default component$(() => {
             <>
               <Link
                 class='px-4 py-2 border-2 font-semibold border-emerald-500 rounded-md text-emerald-500 hover:bg-emerald-400 transition-colors duration-300 hover:text-slate-700 hover:border-transparent'
-                href='/sign-up'
+                href='/auth/sign-up'
               >
                 Register
               </Link>
               <Link
                 class='px-4 py-2 border-2 font-semibold border-emerald-500 bg-emerald-700 rounded-md text-slate-50  transition-colors duration-300 hover:bg-emerald-400 hover:text-slate-800 hover:border-transparent'
-                href='/sign-in'
+                href='/auth/sign-in'
               >
                 Sing In
               </Link>

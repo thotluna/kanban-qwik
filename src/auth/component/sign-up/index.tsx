@@ -16,7 +16,7 @@ export const SignUp = component$<SignInComponent>(
           <Header
             title='Sign Up'
             messageLink='sign in with your user'
-            href='/sign-in'
+            href='/auth/sign-in'
           />
           <GroupButtonRow
             onGithub={handlerGithub}
