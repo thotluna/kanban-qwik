@@ -1,29 +1,24 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { useNavigate } from '@builder.io/qwik-city'
 import { useUserSession } from '~/auth/hooks'
 import { getUser } from '~/auth/services/getUser'
 
 export default component$(() => {
-  const isProtected = useSignal(false)
   const navigate = useNavigate()
-  const userSession = useUserSession()
+  const { clearSession, setUserId } = useUserSession()
 
   useVisibleTask$(({ cleanup }) => {
     const timeout = setTimeout(async () => {
       const { data, error } = await getUser()
 
       if (data?.user?.id && !error) {
-        isProtected.value = true
-
-        userSession.userId = data.user.id
-        userSession.isLoggedIn = true
-
         const name = data.user.email?.split('@')[0]
+        setUserId(data.user.id, name)
+
         navigate(`/${name}/boards`)
       } else {
         console.error(error)
-        userSession.userId = undefined
-        userSession.isLoggedIn = false
+        clearSession()
         navigate('/auth/sign-in')
       }
     }, 500)
