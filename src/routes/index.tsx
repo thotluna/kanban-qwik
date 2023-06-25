@@ -2,10 +2,10 @@ import { $, component$ } from '@builder.io/qwik'
 import { type DocumentHead, Link, useNavigate } from '@builder.io/qwik-city'
 import { useUserSession } from '~/auth/hooks'
 import { signout } from '~/auth/services'
-import { Button } from '~/shared/components/button'
+import { Button, BUTTON_TYPE } from '~/shared/components/button'
 
 export default component$(() => {
-  const userSession = useUserSession()
+  const { state: userSession } = useUserSession()
   const navigate = useNavigate()
 
   const signOutHandler = $(async () => {
@@ -21,7 +21,15 @@ export default component$(() => {
         <h3 class='text-2xl'>KANBAN QWIK</h3>
         <nav class='flex items-center justify-end gap-2'>
           {userSession.isLoggedIn && (
-            <Button onClickButton={signOutHandler}>Sign Out</Button>
+            <>
+              <Button
+                type={BUTTON_TYPE.LINK}
+                href={`/${userSession.userName}/boards`}
+              >
+                Dashboard
+              </Button>
+              <Button onClickButton={signOutHandler}>Sign Out</Button>
+            </>
           )}
           {!userSession.isLoggedIn && (
             <>

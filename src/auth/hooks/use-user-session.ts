@@ -1,4 +1,4 @@
-import { useContext } from '@builder.io/qwik'
+import { $, useContext } from '@builder.io/qwik'
 import { UserSessionContext } from '../contexts'
 
 export function useUserSession() {
@@ -8,5 +8,17 @@ export function useUserSession() {
     throw new Error('Please validate your provider context for User Session')
   }
 
-  return state
+  const setUserId = $((id: string, name: string | undefined = undefined) => {
+    state.userId = id
+    state.userName = name
+    state.isLoggedIn = true
+  })
+
+  const clearSession = $(() => {
+    state.userId = undefined
+    state.userName = undefined
+    state.isLoggedIn = false
+  })
+
+  return { state, setUserId, clearSession }
 }

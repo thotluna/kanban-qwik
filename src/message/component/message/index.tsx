@@ -6,8 +6,6 @@ import { CloseIcon } from '~/shared/components/icons'
 export const Message = component$(() => {
   const { state, clear } = useMessageContext()
 
-  console.log('render message')
-
   const color = useComputed$(() => {
     const val =
       state.type === MESSAGE_TYPE.SUCCESS

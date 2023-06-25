@@ -1,5 +1,6 @@
 import { $, component$, useStore } from '@builder.io/qwik'
-import { type AuthAction, AUTH_ACTIONS } from '~/auth/constants'
+import { AUTH_ACTIONS } from '~/auth/constants'
+import type { AuthAction } from '~/auth/types'
 import { Button, Spinner } from '~/shared/components'
 
 interface FormEmailProps {
@@ -31,9 +32,6 @@ export const FormEmail = component$<FormEmailProps>(
     const handlerSubmit = $((event: any) => {
       const email = (event.target as HTMLFormElement).email?.value
       const terms = (event.target as HTMLFormElement).terms?.checked
-
-      console.log({ email, terms })
-      console.log({ terms, hasTerms })
 
       if (!email || email === '') {
         errorState.email = 'Email is required'

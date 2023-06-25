@@ -7,6 +7,7 @@ import {
 
 export type UserSession = {
   userId?: string | undefined
+  userName?: string
   isLoggedIn: boolean
 }
 export const UserSessionContext = createContextId<UserSession>(
@@ -18,6 +19,7 @@ import { component$ } from '@builder.io/qwik'
 export const UserSessionProvider = component$(() => {
   const userSession = useStore<UserSession>({
     userId: '',
+    userName: undefined,
     isLoggedIn: false,
   })
 
