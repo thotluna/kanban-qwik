@@ -1,29 +1,35 @@
 import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { useNavigate } from '@builder.io/qwik-city'
+import { registerSessionHelper } from '~/auth/helpers/session'
 import { useUserSession } from '~/auth/hooks'
-import { getUser } from '~/auth/services/getUser'
+import { getSession } from '~/auth/services/get-session'
 
 export default component$(() => {
   const navigate = useNavigate()
-  const { clearSession, setUserId } = useUserSession()
+  const { state: stateSession, clearSession, setUserId } = useUserSession()
 
-  useVisibleTask$(({ cleanup }) => {
-    const timeout = setTimeout(async () => {
-      const { data, error } = await getUser()
+  useVisibleTask$(async ({ cleanup }) => {
+    const { data, error } = await getSession()
 
-      if (data?.user?.id && !error) {
-        const name = data.user.email?.split('@')[0]
-        setUserId(data.user.id, name)
+    const controller = new AbortController()
 
-        navigate(`/${name}/boards`)
-      } else {
-        console.error(error)
-        clearSession()
-        navigate('/auth/sign-in')
-      }
-    }, 500)
+    if (data?.session && !error) {
+      const route = await registerSessionHelper({
+        session: data.session,
+        controller,
+        setUserId,
+      })
 
-    cleanup(() => clearTimeout(timeout))
+      route
+        ? navigate(`/${stateSession.userName}/board`)
+        : navigate('/auth/sign-in')
+    } else {
+      console.error(error)
+      clearSession()
+      navigate('/auth/sign-in')
+    }
+
+    cleanup(() => controller.abort())
   })
 
   return <div>Staging</div>

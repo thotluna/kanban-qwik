@@ -6,7 +6,7 @@ import type { StateAuthLoading } from '../types'
 
 export function useOAuth(state: StateAuthLoading) {
   const location = useLocation()
-  const url = useComputed$(() => `${location.url.origin}/staging`)
+  const url = useComputed$(() => `${location.url.origin}/auth/staging`)
 
   const handlerGoogle = $(() => {
     state.isLoading = true
