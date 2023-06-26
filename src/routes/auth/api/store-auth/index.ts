@@ -1,13 +1,28 @@
 import { type RequestHandler } from '@builder.io/qwik-city'
+import { COOKIES_ACCESS_TITLE, COOKIES_REFRESH_TITLE } from '~/auth/constants'
 
 type AccessType = {
   accessToken?: string
   refreshToken?: string
 }
 
-export const onGet: RequestHandler = ({ json, cookie }) => {
-  cookie.set('server-access-token', '', { expires: new Date() })
-  cookie.set('server-refresh-token', '', { expires: new Date() })
+export const onGet: RequestHandler = ({ json, cookie, env }) => {
+  cookie.set(COOKIES_REFRESH_TITLE, '', {
+    secure: env.get('NODE_ENV') !== 'development',
+    httpOnly: true,
+    expires: new Date(),
+    sameSite: 'lax',
+    path: '/',
+  })
+  cookie.set(COOKIES_ACCESS_TITLE, '', {
+    secure: env.get('NODE_ENV') !== 'development',
+    httpOnly: true,
+    expires: new Date(),
+    sameSite: 'lax',
+    path: '/',
+  })
+  console.log('set token expired')
+
   json(200, { message: 'Cookies expired' })
 }
 
@@ -17,7 +32,7 @@ export const onPost: RequestHandler = async ({
   cookie,
   env,
 }) => {
-  const access: AccessType = await request.json()
+  const access: AccessType = await request?.json()
 
   if (!access?.accessToken || !access?.refreshToken) {
     json(401, { message: 'Missing tokens' })
@@ -26,21 +41,25 @@ export const onPost: RequestHandler = async ({
   const dateAccess = new Date()
   const dateRefresh = new Date()
 
-  dateAccess.setHours(dateAccess.getHours() + 1)
+  dateAccess.setHours(dateAccess.getDate() + 1)
   dateRefresh.setDate(dateRefresh.getDate() + 1)
 
-  cookie.set('server-access-token', access.accessToken!, {
-    secure: env.get('NODE_ENV') != 'development',
+  cookie.set(COOKIES_REFRESH_TITLE, access.refreshToken!, {
+    secure: env.get('NODE_ENV') !== 'development',
     httpOnly: true,
     expires: dateAccess,
     sameSite: 'lax',
+    path: '/',
   })
-  cookie.set('server-refresh-token', access.refreshToken!, {
-    secure: env.get('NODE_ENV') != 'development',
+  cookie.set(COOKIES_ACCESS_TITLE, access.accessToken!, {
+    secure: env.get('NODE_ENV') !== 'development',
     httpOnly: true,
     expires: dateRefresh,
     sameSite: 'lax',
+    path: '/',
   })
+
+  console.log('send access token')
 
   json(200, { message: 'Tokens stored' })
 }

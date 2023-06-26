@@ -1,19 +1,22 @@
 import { type Session } from '@supabase/supabase-js'
+import type { UserSession } from '../contexts'
 
 type RegisterSessionType = {
   session: Session
   controller: AbortController
-  setUserId: (id: string, name?: string) => void
+  stateSession: UserSession
 }
 
 export async function registerSessionHelper({
   session,
   controller,
-  setUserId,
+  stateSession,
 }: RegisterSessionType) {
   const { access_token, refresh_token, user } = session
   const { id, email } = user
   const name = email?.split('@')[0]
+
+  console.log('Inicio de envio de sesion al servidor')
 
   const body = {
     accessToken: access_token,
@@ -27,10 +30,17 @@ export async function registerSessionHelper({
     signal: controller.signal,
   })
     .then(() => {
-      setUserId(id, name)
+      stateSession.isLoggedIn = true
+      stateSession.userId = id
+      stateSession.userName = name
+      console.log('Fin de envio de sesion al servidor')
       return true
     })
     .catch((error) => {
+      stateSession.isLoggedIn = false
+      stateSession.userId = undefined
+      stateSession.userName = undefined
+      console.log('Error en el de envio de sesion al servidor')
       console.error(error)
       return false
     })
@@ -46,10 +56,12 @@ export async function unregisterSessionHelper({
   clearSession,
 }: UnregisterSessionType) {
   fetch('/auth/api/store-auth', {
+    method: 'GET',
+    credentials: 'include',
     signal: controller.signal,
   })
-    .then((res) => {
-      console.log(res)
+    .then(() => {
+      console.log('Cerrado la sesion al servidor')
       clearSession()
     })
     .catch((error) => console.error(error))

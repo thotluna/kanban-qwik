@@ -9,7 +9,7 @@ import { RouterHead } from './shared/components/router-head'
 import './global.css'
 import { MessageProvider } from './message/context'
 import { UserSessionProvider } from './auth/contexts'
-import { SessionListener } from './auth/component'
+import { AuthProvider } from './auth/component'
 
 export default component$(() => {
   return (
@@ -22,9 +22,9 @@ export default component$(() => {
       <body lang='en' class=' bg-slate-800 text-slate-100 h-screen'>
         <MessageProvider>
           <UserSessionProvider>
-            <SessionListener>
+            <AuthProvider>
               <RouterOutlet />
-            </SessionListener>
+            </AuthProvider>
           </UserSessionProvider>
         </MessageProvider>
         <ServiceWorkerRegister />

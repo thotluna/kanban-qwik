@@ -9,8 +9,6 @@ export default component$(() => {
   const navigate = useNavigate()
 
   const signOutHandler = $(async () => {
-    //TODO: sign out server
-
     await signout()
     navigate('/')
   })
@@ -20,6 +18,7 @@ export default component$(() => {
       <header class='w-full p-4 bg-slate-700 flex items-center justify-between'>
         <h3 class='text-2xl'>KANBAN QWIK</h3>
         <nav class='flex items-center justify-end gap-2'>
+          <Link href='/'>Refresh</Link>
           {userSession.isLoggedIn && (
             <>
               <Button
