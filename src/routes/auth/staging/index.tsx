@@ -7,11 +7,11 @@ export default component$(() => {
   const navigation = useNavigate()
 
   useVisibleTask$(({ track }) => {
-    track(() => state.isLoggedIn)
+    track(() => state.flagLogged)
 
-    if (state.isLoggedIn) {
+    if (state.flagLogged && state.isLoggedIn) {
       navigation(`/${state.userName}/boards`)
-    } else {
+    } else if (state.flagLogged && !state.isLoggedIn) {
       navigation(`/auth/sign-in`)
     }
   })

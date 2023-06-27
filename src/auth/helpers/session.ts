@@ -33,6 +33,7 @@ export async function registerSessionHelper({
       stateSession.isLoggedIn = true
       stateSession.userId = id
       stateSession.userName = name
+      stateSession.flagLogged = true
       console.log('Fin de envio de sesion al servidor')
       return true
     })
@@ -40,6 +41,7 @@ export async function registerSessionHelper({
       stateSession.isLoggedIn = false
       stateSession.userId = undefined
       stateSession.userName = undefined
+      stateSession.flagLogged = true
       console.log('Error en el de envio de sesion al servidor')
       console.error(error)
       return false

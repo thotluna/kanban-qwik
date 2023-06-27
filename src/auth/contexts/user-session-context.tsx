@@ -9,6 +9,7 @@ export type UserSession = {
   userId?: string | undefined
   userName?: string
   isLoggedIn: boolean
+  flagLogged: boolean
 }
 export const UserSessionContext = createContextId<UserSession>(
   'user-seccion-context'
@@ -21,6 +22,7 @@ export const UserSessionProvider = component$(() => {
     userId: '',
     userName: undefined,
     isLoggedIn: false,
+    flagLogged: false,
   })
 
   useContextProvider(UserSessionContext, userSession)
