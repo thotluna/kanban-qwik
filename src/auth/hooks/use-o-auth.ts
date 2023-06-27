@@ -2,9 +2,9 @@ import { $, useComputed$ } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 import { AUTH_ACTIONS } from '../constants'
 import { signInWithGitHub } from '../services'
-import type { StateAuthLoading } from '../types'
+import type { StateButtonAuthLoading } from '../types'
 
-export function useOAuth(state: StateAuthLoading) {
+export function useOAuth(state: StateButtonAuthLoading) {
   const location = useLocation()
   const url = useComputed$(() => `${location.url.origin}/auth/staging`)
 

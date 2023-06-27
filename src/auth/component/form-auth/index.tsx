@@ -1,6 +1,6 @@
 import { $, component$, useStore } from '@builder.io/qwik'
 import { AUTH_ACTIONS } from '~/auth/constants'
-import type { AuthAction } from '~/auth/types'
+import type { AuthActionButton } from '~/auth/types'
 import { Button, Spinner } from '~/shared/components'
 
 interface FormEmailProps {
@@ -8,7 +8,7 @@ interface FormEmailProps {
   onEmail: (email: string) => void
   hasTerms?: boolean
   isLoading?: boolean
-  action?: AuthAction
+  action?: AuthActionButton
 }
 
 type ErrorState = {

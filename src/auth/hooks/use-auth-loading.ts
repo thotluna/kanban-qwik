@@ -1,9 +1,9 @@
 import { useStore } from '@builder.io/qwik'
 import { AUTH_ACTIONS } from '../constants'
-import type { StateAuthLoading } from '../types'
+import type { StateButtonAuthLoading } from '../types'
 
 export function useAuthLoading() {
-  const state = useStore<StateAuthLoading>({
+  const state = useStore<StateButtonAuthLoading>({
     isLoading: false,
     actions: AUTH_ACTIONS.EMAIL,
   })
