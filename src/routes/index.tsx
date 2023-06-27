@@ -1,7 +1,7 @@
 import { $, component$ } from '@builder.io/qwik'
 import { type DocumentHead, Link, useNavigate } from '@builder.io/qwik-city'
 import { useUserSession } from '~/auth/hooks'
-import { signout } from '~/auth/services'
+import { Auth } from '~/auth/services'
 import { Button, BUTTON_TYPE } from '~/shared/components/button'
 
 export default component$(() => {
@@ -9,7 +9,7 @@ export default component$(() => {
   const navigate = useNavigate()
 
   const signOutHandler = $(async () => {
-    await signout()
+    await Auth().signOut()
     navigate('/')
   })
 

@@ -1,10 +1,4 @@
-import { supabase, supabaseServer } from '~/shared/services/supabase'
-
-export async function getUser() {
-  const { data, error } = await supabase.auth.getUser()
-
-  return { data, error }
-}
+import { supabaseServer } from '~/shared/services/supabase'
 
 export async function getUserFromServer({
   privateKey,

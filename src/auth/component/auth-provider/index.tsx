@@ -8,7 +8,7 @@ import {
 import { useNavigate } from '@builder.io/qwik-city'
 import { registerSessionHelper, unregisterSessionHelper } from '~/auth/helpers'
 import { useUserSession } from '~/auth/hooks'
-import { getUser, onAuthStateChange } from '~/auth/services'
+import { Auth } from '~/auth/services'
 import { MESSAGE_TYPE, useMessageContext } from '~/message'
 
 export const AuthProvider = component$(() => {
@@ -20,7 +20,7 @@ export const AuthProvider = component$(() => {
     'load',
     $(() => {
       const controller = new AbortController()
-      onAuthStateChange({
+      Auth().onAuthStateChange({
         callback: async (event, session) => {
           if (event === 'SIGNED_IN' && session) {
             const saveSession = await registerSessionHelper({
@@ -59,7 +59,7 @@ export const AuthProvider = component$(() => {
   useVisibleTask$(async ({ track }) => {
     track(() => stateSession.isLoggedIn)
     if (stateSession.isLoggedIn) {
-      const { data } = await getUser()
+      const { data } = await Auth().getUser()
       if (data?.user) {
         const { id, email } = data.user
         const name = email?.split('@')[0]

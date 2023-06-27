@@ -1,7 +1,7 @@
 import { $, useComputed$ } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 import { AUTH_ACTIONS } from '../constants'
-import { signInWithGitHub } from '../services'
+import { Auth } from '../services'
 import type { StateButtonAuthLoading } from '../types'
 
 export function useOAuth(state: StateButtonAuthLoading) {
@@ -16,7 +16,7 @@ export function useOAuth(state: StateButtonAuthLoading) {
   const handlerGithub = $(() => {
     state.isLoading = true
     state.actions = AUTH_ACTIONS.GITHUB
-    signInWithGitHub(url.value)
+    Auth().signInWithGithub({ redirectTo: url.value })
   })
 
   return { handlerGithub, handlerGoogle }

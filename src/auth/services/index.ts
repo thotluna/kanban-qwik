@@ -1,6 +1,2 @@
 export * from './getUser'
-export * from './onAuthStateChange'
-export * from './sign_in_opt'
-export * from './sign_in_with_github'
-export * from './sign_out'
-export * from './sign_up'
+export * from './auth-service'

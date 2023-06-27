@@ -1,11 +1,11 @@
 import { MESSAGE_TYPE } from '~/message/constants'
-import { signUp } from '../services'
+import { Auth } from '../services'
 
 export async function signUpHelper({ email }: { email: string }) {
   const timestamp = Date.now()
   const password = Math.floor(Math.random() * 1000000) + email + timestamp
 
-  const { data, error } = await signUp({ email, password })
+  const { data, error } = await Auth().signUp({ email, password })
 
   const result = { message: '', type: MESSAGE_TYPE.INFO }
   if (data?.user?.id) {

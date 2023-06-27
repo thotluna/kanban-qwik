@@ -1,7 +1,7 @@
 import type { RouteLocation } from '@builder.io/qwik-city'
 import type { MessageObject } from '~/message'
 import { MESSAGE_TYPE } from '~/message/constants'
-import { signInOpt } from '../services'
+import { Auth } from '../services'
 
 export async function singInHelper({
   email,
@@ -11,7 +11,7 @@ export async function singInHelper({
   location: RouteLocation
 }) {
   const url = `${location.url.origin}/auth/staging`
-  const { data, error } = await signInOpt({ email, redirect: url })
+  const { data, error } = await Auth().signInWithOtp({ email, redirect: url })
 
   const result: MessageObject = { message: '', type: MESSAGE_TYPE.INFO }
 
