@@ -21,7 +21,6 @@ export const onGet: RequestHandler = ({ json, cookie, env }) => {
     sameSite: 'lax',
     path: '/',
   })
-  console.log('set token expired')
 
   json(200, { message: 'Cookies expired' })
 }
@@ -58,8 +57,6 @@ export const onPost: RequestHandler = async ({
     sameSite: 'lax',
     path: '/',
   })
-
-  console.log('send access token')
 
   json(200, { message: 'Tokens stored' })
 }

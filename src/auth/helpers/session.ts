@@ -16,8 +16,6 @@ export async function registerSessionHelper({
   const { id, email } = user
   const name = email?.split('@')[0]
 
-  console.log('Inicio de envio de sesion al servidor')
-
   const body = {
     accessToken: access_token,
     refreshToken: refresh_token,
@@ -34,7 +32,6 @@ export async function registerSessionHelper({
       stateSession.userId = id
       stateSession.userName = name
       stateSession.flagLogged = true
-      console.log('Fin de envio de sesion al servidor')
       return true
     })
     .catch((error) => {
@@ -42,7 +39,6 @@ export async function registerSessionHelper({
       stateSession.userId = undefined
       stateSession.userName = undefined
       stateSession.flagLogged = true
-      console.log('Error en el de envio de sesion al servidor')
       console.error(error)
       return false
     })
@@ -63,7 +59,6 @@ export async function unregisterSessionHelper({
     signal: controller.signal,
   })
     .then(() => {
-      console.log('Cerrado la sesion al servidor')
       clearSession()
     })
     .catch((error) => console.error(error))

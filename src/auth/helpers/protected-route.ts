@@ -2,7 +2,7 @@ import type { RequestEvent } from '@builder.io/qwik-city'
 import { COOKIES_ACCESS_TITLE } from '../constants'
 import { getProfileFromServer } from '../services'
 
-export const protectedRoute = async ({
+export const protectedRouteHelper = async ({
   cookie,
   next,
   redirect,
@@ -10,15 +10,12 @@ export const protectedRoute = async ({
   params,
 }: RequestEvent<QwikCityPlatform>) => {
   const token = cookie.get(COOKIES_ACCESS_TITLE)?.value
-
   const privateKey = env.get('PRIVATE_SUPABASE_KEY')
 
   if (!token || !privateKey) {
     redirect(303, '/auth/sign-in')
     return
   }
-
-  console.log('Hay Tokens')
 
   const profile = await getProfileFromServer({ privateKey, token })
 
@@ -28,7 +25,6 @@ export const protectedRoute = async ({
   }
 
   const name = profile.email.split('@')[0]
-  console.log({ name, params: params.user })
 
   if (params.user !== name) {
     redirect(303, '/auth/sign-in')

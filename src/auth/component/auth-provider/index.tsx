@@ -5,15 +5,11 @@ import {
   useOnWindow,
   useVisibleTask$,
 } from '@builder.io/qwik'
-import { type RequestHandler, useNavigate } from '@builder.io/qwik-city'
+import { useNavigate } from '@builder.io/qwik-city'
 import { registerSessionHelper, unregisterSessionHelper } from '~/auth/helpers'
 import { useUserSession } from '~/auth/hooks'
 import { getUser, onAuthStateChange } from '~/auth/services'
 import { MESSAGE_TYPE, useMessageContext } from '~/message'
-
-export const onRequest: RequestHandler = async ({ cookie }) => {
-  console.log('Auth ', { cookie })
-}
 
 export const AuthProvider = component$(() => {
   const { setMessage } = useMessageContext()
@@ -65,14 +61,10 @@ export const AuthProvider = component$(() => {
     if (stateSession.isLoggedIn) {
       const { data } = await getUser()
       if (data?.user) {
-        console.log('add user', { access: stateSession.assessToken })
-
         const { id, email } = data.user
         const name = email?.split('@')[0]
         setUserId(id, name)
       } else {
-        console.log('closed session')
-
         clearSession()
       }
     }
