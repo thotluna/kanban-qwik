@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik'
-import { Link } from '@builder.io/qwik-city'
 
 import {
   AuthCard,
@@ -20,7 +19,6 @@ export const SignIn = component$<SignInComponent>(
     return (
       <section class='w-full h-full flex justify-center items-center'>
         <AuthCard>
-          <Link href='/'>Atras</Link>
           <Header
             title='Sign In'
             messageLink='sign up with new user'
