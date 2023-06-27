@@ -1,4 +1,4 @@
-import { component$, useComputed$ } from '@builder.io/qwik'
+import { component$, useComputed$, useTask$ } from '@builder.io/qwik'
 import { MESSAGE_TYPE } from '~/message/constants'
 import { useMessageContext } from '~/message/hooks'
 import { CloseIcon } from '~/shared/components/icons'
@@ -15,6 +15,15 @@ export const Message = component$(() => {
         : 'bg-blue-400 border-slate-50'
 
     return val
+  })
+
+  useTask$(({ track }) => {
+    track(() => state.message)
+    if (state.message) {
+      setTimeout(() => {
+        clear()
+      }, 1500)
+    }
   })
 
   return (
