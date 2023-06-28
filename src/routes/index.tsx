@@ -1,7 +1,8 @@
-import { $, component$ } from '@builder.io/qwik'
-import { type DocumentHead, Link, useNavigate } from '@builder.io/qwik-city'
+import { $, component$, useSignal } from '@builder.io/qwik'
+import { type DocumentHead, useNavigate } from '@builder.io/qwik-city'
 import { useUserSession } from '~/auth/hooks'
 import { Auth } from '~/auth/services'
+import { MenuIcon } from '~/shared/components'
 import { Button, BUTTON_TYPE } from '~/shared/components/button'
 
 export default component$(() => {
@@ -13,37 +14,65 @@ export default component$(() => {
     navigate('/')
   })
 
+  const opneMenu = useSignal(false)
+
   return (
     <>
-      <header class='w-full p-4 bg-slate-700 flex items-center justify-between'>
-        <h3 class='text-2xl'>KANBAN QWIK</h3>
-        <nav class='flex items-center justify-end gap-2'>
-          <Link href='/'>Refresh</Link>
+      <header class='w-full p-4 bg-slate-700 flex flex-col gap-2 md:flex-row items-center justify-between '>
+        <div
+          onFocus$={() => console.log('hello')}
+          class='w-full flex-1 flex items-center justify-between'
+        >
+          <h3 class='text-2xl'>KANBAN QWIK</h3>
+          <button
+            onClick$={() => (opneMenu.value = !opneMenu.value)}
+            class='p-2 text-emerald-500 hover:text-emerald-300 md:hidden'
+          >
+            <MenuIcon size={32} />
+          </button>
+        </div>
+        <nav
+          class={[
+            'w-full  flex flex-col  items-center justify-end gap-2 transition-all duration-300',
+            'md:w-auto md:flex-row md:inline-flex',
+            { hidden: !opneMenu.value },
+          ]}
+        >
           {userSession.isLoggedIn && (
             <>
               <Button
+                classText='w-full md:w-auto'
                 type={BUTTON_TYPE.LINK}
                 href={`/${userSession.userName}/boards`}
+                primary
               >
                 Dashboard
               </Button>
-              <Button onClickButton={signOutHandler}>Sign Out</Button>
+              <Button
+                classText='w-full md:w-auto'
+                onClickButton={signOutHandler}
+              >
+                Sign Out
+              </Button>
             </>
           )}
           {!userSession.isLoggedIn && (
             <>
-              <Link
-                class='px-4 py-2 border-2 font-semibold border-emerald-500 rounded-md text-emerald-500 hover:bg-emerald-400 transition-colors duration-300 hover:text-slate-700 hover:border-transparent'
+              <Button
+                classText='w-full md:w-auto'
+                type={BUTTON_TYPE.LINK}
                 href='/auth/sign-up'
               >
-                Register
-              </Link>
-              <Link
-                class='px-4 py-2 border-2 font-semibold border-emerald-500 bg-emerald-700 rounded-md text-slate-50  transition-colors duration-300 hover:bg-emerald-400 hover:text-slate-800 hover:border-transparent'
+                Sign Up
+              </Button>
+              <Button
+                classText='w-full md:w-auto'
+                type={BUTTON_TYPE.LINK}
                 href='/auth/sign-in'
+                primary
               >
                 Sing In
-              </Link>
+              </Button>
             </>
           )}
         </nav>
