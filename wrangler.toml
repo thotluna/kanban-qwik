@@ -1,0 +1,6 @@
+[env.production]
+name="kanban-qwik"
+[env.production.vars]
+PUBLIC_SUPABASE_URL="https://bvzcmttayfncsmqahyvv.supabase.co"
+PUBLIC_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2emNtdHRheWZuY3NtcWFoeXZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc5MTk4NDgsImV4cCI6MjAwMzQ5NTg0OH0.vDd6Y6f89HcmEOpx_E-5fXF0fV1AOzeqcTUK5wdiZKo"
+

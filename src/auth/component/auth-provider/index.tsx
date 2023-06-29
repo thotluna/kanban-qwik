@@ -37,9 +37,10 @@ export const AuthProvider = component$(() => {
               navigate(`/${stateSession.userName}/boards`)
             } else {
               setMessage({
-                message: 'Something went wrong',
+                message: 'Do you not permisses',
                 type: MESSAGE_TYPE.ERROR,
               })
+
               navigate(`/auth/sign-in`)
             }
           }
