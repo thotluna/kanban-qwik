@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
-import { type AuthAction, AUTH_ACTIONS } from '~/auth/constants'
+import { AUTH_ACTIONS } from '~/auth/constants'
+import type { AuthActionButton } from '~/auth/types'
 import { Button } from '~/shared/components/button'
 import { GithubIcon, GoogleIcon } from '~/shared/components/icons'
 import { Spinner } from '~/shared/components/spinner'
@@ -8,7 +9,7 @@ interface GroupButtonRowProps {
   onGoogle: () => void
   onGithub: () => void
   isLoading?: boolean
-  action?: AuthAction
+  action?: AuthActionButton
 }
 
 export const GroupButtonRow = component$<GroupButtonRowProps>(
